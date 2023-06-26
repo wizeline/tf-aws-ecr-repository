@@ -1,6 +1,6 @@
 # Terraform AWS ECR Repositories
 
-Terraform module to create and manage AWS infrastructure for ECR repositpories, including image scanning and vulnerabilities notifications.
+Terraform module to create and manage AWS infrastructure for ECR repositories, including image scanning and vulnerabilities notifications with Event Bridge and SNS.
 
 ![](./docs/img/tf_aws_ecr_repositories.png)
 
@@ -19,7 +19,7 @@ Terraform module to create and manage AWS infrastructure for ECR repositpories, 
 ## Module Features
 <hr />
 
-Aditionally to the reusability, portability, scalability and compliance that this module allows you to have in your ECR infrastructure, It also provides:
+Aditionally, to the reusability, portability, scalability and compliance that this module allows you to have in your ECR infrastructure, It also provides:
 
 * **Image scanning**. It uses  ECR's vulnerability scanning capabilities, enabling the automatic scanning of container images for potential vulnerabilities.
 
@@ -36,7 +36,7 @@ Find some examples listed below.
 
 ### Create an ECR Repository
 
-This example shows you the configuration needed to create only a private ECR repository without image scanning nor notifications:
+The example below shows you the configuration needed to create only a private ECR repository without image scanning nor notifications:
 
 ```terraform
 module "example" {
@@ -72,7 +72,7 @@ output "example_repo_url" {
 
 ### Create an ECR Repository + Scanning + SNS Topic + Notifications
 
-Even though this module allows you to crete an SNS topic among the ECR repo, we highly recommend you to manage the SNS infrastructure separately in order to have reusability and cleaner code. But for those special cases, the example below will show you how to also create the SNS topic and related resources.
+Even though this module allows you to create an SNS topic among the ECR repo, we highly recommend you to manage the SNS infrastructure separately in order to have reusability and cleaner code. But for those special cases, the example below will show you how to also create the SNS topic and related resources.
 
 ```terraform
 module "example" {
