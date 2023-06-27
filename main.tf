@@ -72,7 +72,7 @@ resource "aws_cloudwatch_event_target" "this" {
 resource "aws_sns_topic" "this" {
   count = var.create_image_monitoring && var.create_sns_topic ? 1 : 0
 
-  name = var.sns_topic_name
+  name = var.sns_topic_name == "" ? replace("${var.name}-vuln", "/", "-") : var.sns_topic_name
 
   tags = merge(var.tags, var.sns_tags)
 }
