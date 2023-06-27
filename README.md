@@ -16,7 +16,7 @@ Terraform module to create and manage AWS infrastructure for ECR repositories, i
 
 * [Module Argument Reference](./docs/md/tf-docs.md)
 
-## Examples
+## Module Features
 <hr />
 
 Aditionally, to the reusability, portability, scalability and compliance that this module allows you to have in your ECR infrastructure, It also provides:
