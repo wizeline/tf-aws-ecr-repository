@@ -51,28 +51,9 @@ output "example_repo_url" {
 }
 ```
 
-### Create an ECR Repository + Scanning + Notifications to an Existing SNS Topic
-
-The example below will show you how to create an ECR repository, enable image scanning (enabled by default) and notify about "MEDIUM" and higher vulnerabilities to an existing SNS topic.
-
-```terraform
-module "example" {
-  source = "github.com/wizeline/tf-aws-ecr-repository.git?ref=v0.0.1"
-  
-  name                    = "example"
-  create_image_monitoring = true
-  image_severity_level    = "MEDIUM"
-  sns_topic_arn           = <sns-topic-arn>
-}
-
-output "example_repo_url" {
-  value = module.example.ecr_repo_url
-}
-```
-
 ### Create an ECR Repository + Scanning + SNS Topic + Notifications
 
-Even though this module allows you to create an SNS topic among the ECR repo, we highly recommend you to manage the SNS infrastructure separately in order to have reusability and cleaner code. But for those special cases, the example below will show you how to also create the SNS topic and related resources.
+The example below shows you how to create an ECR repository, a SNS topic and the rules to get notifications from "MEDIUM" and higher vulnerabilities findings.
 
 ```terraform
 module "example" {
@@ -93,5 +74,24 @@ output "example_repo_url" {
 
 output "example_topic_arn" {
   value = module.example.sns_topic_arn
+}
+```
+
+### Create an ECR Repository + Scanning + Notifications to an Existing SNS Topic
+
+The example below will show you how to create an ECR repository, enable image scanning (enabled by default) and notify about "MEDIUM" and higher vulnerabilities to an existing SNS topic.
+
+```terraform
+module "example" {
+  source = "github.com/wizeline/tf-aws-ecr-repository.git?ref=v0.0.1"
+  
+  name                    = "example"
+  create_image_monitoring = true
+  image_severity_level    = "MEDIUM"
+  sns_topic_arn           = <sns-topic-arn>
+}
+
+output "example_repo_url" {
+  value = module.example.ecr_repo_url
 }
 ```
