@@ -92,7 +92,7 @@ variable "event_bridge_tags" {
 variable "sns_topic_name" {
   type        = string
   description = "(Optional) The name of the topic."
-  default     = var.name
+  default     = "${var.name}-vulnerabilities"
 }
 
 variable "sns_subscriptions" {

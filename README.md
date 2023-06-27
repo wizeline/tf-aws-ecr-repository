@@ -82,7 +82,6 @@ module "example" {
   create_image_monitoring = true
   image_severity_level    = "MEDIUM"
   create_sns_topic        = true
-  sns_topic_name          = "example-topic"
   sns_subscriptions = {
     "example@example.com" = "email"
   }
@@ -90,5 +89,9 @@ module "example" {
 
 output "example_repo_url" {
   value = module.example.ecr_repo_url
+}
+
+output "example_topic_arn" {
+  value = module.example.sns_topic_arn
 }
 ```
