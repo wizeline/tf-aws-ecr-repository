@@ -40,7 +40,7 @@ The example below shows you the configuration needed to create only a private EC
 
 ```terraform
 module "example" {
-  source = "github.com/wizeline/tf-aws-ecr-repository.git?ref=v0.0.1"
+  source = "github.com/wizeline/tf-aws-ecr-repository.git?ref=<version>"
   
   name             = "example"
   ecr_scan_on_push = false
@@ -57,7 +57,7 @@ The example below shows you how to create an ECR repository, a SNS topic and the
 
 ```terraform
 module "example" {
-  source = "github.com/wizeline/tf-aws-ecr-repository.git?ref=v0.0.1"
+  source = "github.com/wizeline/tf-aws-ecr-repository.git?ref=<version>"
   
   name                    = "example"
   create_image_monitoring = true
@@ -83,7 +83,7 @@ The example below will show you how to create an ECR repository, enable image sc
 
 ```terraform
 module "example" {
-  source = "github.com/wizeline/tf-aws-ecr-repository.git?ref=v0.0.1"
+  source = "github.com/wizeline/tf-aws-ecr-repository.git?ref=<version>"
   
   name                    = "example"
   create_image_monitoring = true
