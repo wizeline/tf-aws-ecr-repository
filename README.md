@@ -6,7 +6,7 @@ Terraform module to create and manage AWS infrastructure for ECR repositories, i
 
 * [Module Features](#module-features)
 
-* [Getting Started](#getting-started)
+* [Examples](#examples)
 
     * [Create an ECR Repository](#create-an-ecr-repository)
 
@@ -14,9 +14,9 @@ Terraform module to create and manage AWS infrastructure for ECR repositories, i
 
     * [Create an ECR Repository + Scanning + SNS Topic + Notifications](#create-an-ecr-repository--scanning--sns-topic--notifications)
 
+* [Module Argument Reference](./docs/md/tf-docs.md)
 
-
-## Module Features
+## Examples
 <hr />
 
 Aditionally, to the reusability, portability, scalability and compliance that this module allows you to have in your ECR infrastructure, It also provides:
@@ -27,7 +27,7 @@ Aditionally, to the reusability, portability, scalability and compliance that th
 
 * **Customizable alerting**. You can configure different notification channels like webhooks, emails, etc. thanks to the SNS integration.
 
-## Getting Started
+## Examples
 <hr />
 
 Find some examples listed below.
@@ -95,3 +95,5 @@ output "example_repo_url" {
   value = module.example.ecr_repo_url
 }
 ```
+
+## [Module Argument Reference](./docs/md/tf-docs.md)
