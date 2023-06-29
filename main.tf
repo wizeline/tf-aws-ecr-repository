@@ -47,11 +47,32 @@ resource "aws_cloudwatch_event_rule" "this" {
   tags = merge(var.tags, var.event_bridge_tags)
 }
 
-resource "aws_cloudwatch_event_target" "this" {
-  for_each = var.create_image_monitoring ? toset(local.sub_severity_levels) : []
+resource "aws_cloudwatch_event_target" "multiple_arns" {
+  for_each = var.create_image_monitoring  && !var.create_sns_topic ? local.event_targets : {}
+
+  rule = aws_cloudwatch_event_rule.this[each.value.level].name
+  arn  = each.value.arn
+
+  input_transformer {
+    input_paths = {
+      account         = "$.account",
+      region          = "$.region",
+      repository_name = "$.detail.repository-name",
+      image_tag       = "$.detail.image-tags[0]",
+      image_digest    = "$.detail.image-digest"
+    }
+
+    input_template = "\"ECR Scanning found ${each.value.level} vulnerabilities on <repository_name>:<image_tag>. More details: https://<region>.console.aws.amazon.com/ecr/repositories/private/<account>/<repository_name>/_/image/<image_digest>/scan-results?region=<region>\""
+  }
+}
+
+# Resource to be created ONLY if var.create_sns_topic is true b/c Terraform can't
+# determine "for_each" keys derived from resource attributes until apply.
+resource "aws_cloudwatch_event_target" "single_arn" {
+  for_each = var.create_image_monitoring  && var.create_sns_topic ? toset(local.sub_severity_levels) : []
 
   rule = aws_cloudwatch_event_rule.this[each.value].name
-  arn  = var.create_sns_topic ? aws_sns_topic.this[0].arn : var.sns_topic_arn
+  arn  = aws_sns_topic.this[0].arn
 
   input_transformer {
     input_paths = {
@@ -77,10 +98,11 @@ resource "aws_sns_topic" "this" {
   tags = merge(var.tags, var.sns_tags)
 }
 
+// Create SNS subcriptions ONLY for the topic created by this module
 resource "aws_sns_topic_subscription" "this" {
-  for_each = var.create_image_monitoring ? var.sns_subscriptions : {}
+  for_each = var.create_image_monitoring && var.create_sns_topic ? var.sns_subscriptions : {}
 
-  topic_arn = var.create_sns_topic ? aws_sns_topic.this[0].arn : var.sns_topic_arn
+  topic_arn = aws_sns_topic.this[0].arn
   endpoint  = each.key
   protocol  = each.value
 }

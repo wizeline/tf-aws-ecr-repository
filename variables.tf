@@ -36,14 +36,14 @@ variable "image_severity_level" {
 
 variable "create_sns_topic" {
   type        = bool
-  description = "(Optional) Whether create an SNS topic or not."
+  description = "(Optional) Whether create an SNS topic or not. Choose between this or provide existing SNS topics ARNs through \"var.sns_topics_arns\"."
   default     = false
 }
 
-variable "sns_topic_arn" {
-  type        = string
-  description = "(Optional) ARN of the existing SNS topic. Existing SNS topic must the right policy."
-  default     = ""
+variable "sns_topics_arns" {
+  type        = list(string)
+  description = "(Optional) ARNs of the existing SNS topics where the alert messages will be sent. Choose between this or creating a new SNS topic through \"var.create_sns_topic\"."
+  default     = []
 }
 
 #-----------------------------------------------------------

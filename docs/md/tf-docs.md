@@ -20,7 +20,8 @@ No modules.
 | Name | Type |
 |------|------|
 | [aws_cloudwatch_event_rule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule) | resource |
-| [aws_cloudwatch_event_target.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
+| [aws_cloudwatch_event_target.multiple_arns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
+| [aws_cloudwatch_event_target.single_arn](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target) | resource |
 | [aws_ecr_repository.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository) | resource |
 | [aws_sns_topic.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic) | resource |
 | [aws_sns_topic_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_policy) | resource |
@@ -33,7 +34,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_create_image_monitoring"></a> [create\_image\_monitoring](#input\_create\_image\_monitoring) | (Optional) Whether create resources to monitor image vulnerabilities or not. | `bool` | `false` | no |
-| <a name="input_create_sns_topic"></a> [create\_sns\_topic](#input\_create\_sns\_topic) | (Optional) Whether create an SNS topic or not. | `bool` | `false` | no |
+| <a name="input_create_sns_topic"></a> [create\_sns\_topic](#input\_create\_sns\_topic) | (Optional) Whether create an SNS topic or not. Choose between this or provide existing SNS topics ARNs through "var.sns\_topics\_arns". | `bool` | `false` | no |
 | <a name="input_ecr_force_delete"></a> [ecr\_force\_delete](#input\_ecr\_force\_delete) | (Optional) If true, will delete the repository even if it contains images. | `bool` | `true` | no |
 | <a name="input_ecr_image_tag_immutability"></a> [ecr\_image\_tag\_immutability](#input\_ecr\_image\_tag\_immutability) | (Optional) The tag mutability setting for the repository. | `string` | `"MUTABLE"` | no |
 | <a name="input_ecr_scan_on_push"></a> [ecr\_scan\_on\_push](#input\_ecr\_scan\_on\_push) | (Optional) Indicates whether images are scanned after being pushed to the repository or not scanned. | `bool` | `true` | no |
@@ -44,8 +45,8 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | (Required) This name will be used in all resources created by this module. | `string` | n/a | yes |
 | <a name="input_sns_subscriptions"></a> [sns\_subscriptions](#input\_sns\_subscriptions) | (Optional) Subscriber endpoints and subscriber protocols in the form of: "endpoint"="protocol". | `map(string)` | `{}` | no |
 | <a name="input_sns_tags"></a> [sns\_tags](#input\_sns\_tags) | (Optional) Tags dedicated to SNS resources. | `map(string)` | `{}` | no |
-| <a name="input_sns_topic_arn"></a> [sns\_topic\_arn](#input\_sns\_topic\_arn) | (Optional) ARN of the existing SNS topic. Existing SNS topic must the right policy. | `string` | `""` | no |
 | <a name="input_sns_topic_name"></a> [sns\_topic\_name](#input\_sns\_topic\_name) | (Optional) The name of the topic. | `string` | `""` | no |
+| <a name="input_sns_topics_arns"></a> [sns\_topics\_arns](#input\_sns\_topics\_arns) | (Optional) ARNs of the existing SNS topics where the alert messages will be sent. Choose between this or creating a new SNS topic through "var.create\_sns\_topic". | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) Tags applied to all resources created by this module. | `map(string)` | `{}` | no |
 
 ## Outputs
