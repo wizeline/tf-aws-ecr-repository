@@ -48,7 +48,7 @@ resource "aws_cloudwatch_event_rule" "this" {
 }
 
 resource "aws_cloudwatch_event_target" "multiple_arns" {
-  for_each = var.create_image_monitoring  && !var.create_sns_topic ? local.event_targets : {}
+  for_each = var.create_image_monitoring && !var.create_sns_topic ? local.event_targets : {}
 
   rule = aws_cloudwatch_event_rule.this[each.value.level].name
   arn  = each.value.arn
@@ -69,7 +69,7 @@ resource "aws_cloudwatch_event_target" "multiple_arns" {
 # Resource to be created ONLY if var.create_sns_topic is true b/c Terraform can't
 # determine "for_each" keys derived from resource attributes until apply.
 resource "aws_cloudwatch_event_target" "single_arn" {
-  for_each = var.create_image_monitoring  && var.create_sns_topic ? toset(local.sub_severity_levels) : []
+  for_each = var.create_image_monitoring && var.create_sns_topic ? toset(local.sub_severity_levels) : []
 
   rule = aws_cloudwatch_event_rule.this[each.value].name
   arn  = aws_sns_topic.this[0].arn

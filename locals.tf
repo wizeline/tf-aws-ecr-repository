@@ -12,7 +12,7 @@ locals {
   // Define event_targets map from the cartesian product of severity levels and ARNs.
   event_targets = {
     for pair in setproduct(var.sns_topics_arns, local.sub_severity_levels) : "${pair[0]}.${pair[1]}" => {
-      arn = pair[0]
+      arn   = pair[0]
       level = pair[1]
     }
   }
